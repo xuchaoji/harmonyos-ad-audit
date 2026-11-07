@@ -1,0 +1,196 @@
+{
+  "_comment": "机制识别包：generic 与厂商无关，vendor 是已知实现的特征。score = 命中家族权重之和（每家族只计一次）。",
+  "mechanisms": [
+    {
+      "id": "pass_through",
+      "name": "穿透点击",
+      "generic": [
+        {
+          "re": "pass[_ ]?through|buttonPass|clickPass",
+          "w": 3,
+          "why": "穿透语义"
+        },
+        {
+          "re": "穿透",
+          "w": 3,
+          "why": "中文穿透"
+        }
+      ],
+      "vendor": [
+        {
+          "re": "getButtonPassPercent|recordPassClick|buttonPassPercent",
+          "w": 5,
+          "vendor": "OSET"
+        }
+      ]
+    },
+    {
+      "id": "close_click",
+      "name": "关闭触发点击",
+      "generic": [
+        {
+          "re": "closing[ _-]?triggered[ _-]?click|close.{0,12}trigger.{0,12}click",
+          "w": 3,
+          "why": "关闭触发点击（强语义）"
+        },
+        {
+          "re": "close[ _-]?click|notify.{0,10}close.{0,6}click",
+          "w": 1,
+          "why": "关闭按钮点击（弱）",
+          "require": "ad|广告|splash|interstitial|开屏|插屏|reward|feed"
+        }
+      ],
+      "vendor": [
+        {
+          "re": "can_closing_triggered_click|canClosingTriggeredClick|isClickCallbackByCnr",
+          "w": 5,
+          "vendor": "OSET"
+        }
+      ]
+    },
+    {
+      "id": "force_click",
+      "name": "强制点击",
+      "generic": [
+        {
+          "re": "force[ _-]?click|强制点击|强制跳转",
+          "w": 3,
+          "why": "强制点击",
+          "require": "ad|广告|splash|interstitial|开屏|插屏|reward|feed"
+        }
+      ],
+      "vendor": []
+    },
+    {
+      "id": "auto_click",
+      "name": "自动点击/自动下载",
+      "generic": [
+        {
+          "re": "auto[ _-]?click|isAutoClick",
+          "w": 3,
+          "why": "自动点击",
+          "require": "ad|广告|splash|interstitial|开屏|插屏|reward|feed",
+          "reject": "antispam|anti[ _-]?click|autoclick[ _-]?detect|防自动|检测"
+        },
+        {
+          "re": "自动点击|自动下载",
+          "w": 3,
+          "why": "中文自动",
+          "require": "ad|广告|splash|interstitial|开屏|插屏|reward|feed",
+          "reject": "antispam|anti[ _-]?click|autoclick[ _-]?detect|防自动|检测"
+        }
+      ],
+      "vendor": []
+    },
+    {
+      "id": "sensor_click",
+      "name": "传感器点击（摇/扭/倾斜/滑动/擦除）",
+      "generic": [
+        {
+          "re": "(?<![A-Za-z])(shake|twist|tilt|wobble)(?![A-Za-z])",
+          "w": 2,
+          "why": "摇/扭/倾斜"
+        },
+        {
+          "re": "accelerometer|gyroscope",
+          "w": 1,
+          "why": "传感器 API（弱）"
+        },
+        {
+          "re": "摇一摇|扭一扭|扭动手机|晃动|倾斜",
+          "w": 3,
+          "why": "中文互动"
+        },
+        {
+          "re": "(?<![A-Za-z])(SWIPE_CLICK|SHAKE_IT|TILT_SENSOR|ERASE)(?![A-Za-z])",
+          "w": 3,
+          "why": "互动枚举"
+        }
+      ],
+      "vendor": []
+    },
+    {
+      "id": "interactive_material",
+      "name": "互动物料（滑动福利/水波纹/擦除）",
+      "generic": [
+        {
+          "re": "slide.{0,20}(welfare|toEnd|unlock)|滑动.{0,8}(福利|解锁|打开)",
+          "w": 3,
+          "why": "滑动福利"
+        },
+        {
+          "re": "waterRipple|水波纹|ripple",
+          "w": 2,
+          "why": "水波纹"
+        },
+        {
+          "re": "(?<![A-Za-z])erase(?![A-Za-z])|擦除",
+          "w": 2,
+          "why": "擦除"
+        }
+      ],
+      "vendor": [
+        {
+          "re": "OSETSlideWelfare|OSETWaterRipple|OSETPassEffect",
+          "w": 5,
+          "vendor": "OSET"
+        }
+      ]
+    },
+    {
+      "id": "click_dispatch",
+      "name": "点击分发链（上报+落地）",
+      "generic": [
+        {
+          "re": "ClickDispatcher|ClickHelper|ClickManager|AdClickHelper|ClickHandler",
+          "w": 3,
+          "why": "点击分发类"
+        },
+        {
+          "re": "onAdClicked|notifyAdClick|reportAdClick|reportClick",
+          "w": 2,
+          "why": "点击回调/上报"
+        },
+        {
+          "re": "clickCallback|clickUrl|__CLICK|__DOWN_X|__UP_X",
+          "w": 2,
+          "why": "监测宏/回调",
+          "require": "ad|广告|splash|interstitial|开屏|插屏|reward|feed"
+        },
+        {
+          "re": "openLanding|openDeeplink|gotoDeeplink|landingPage|落地页",
+          "w": 2,
+          "why": "落地页/深链"
+        },
+        {
+          "re": "点击上报|点击分发|点击回调",
+          "w": 2,
+          "why": "中文点击链路"
+        }
+      ],
+      "vendor": []
+    },
+    {
+      "id": "click_gating",
+      "name": "点击频控（概率/日上限/间隔）",
+      "generic": [
+        {
+          "re": "passPercent|probability|随机数",
+          "w": 2,
+          "why": "概率放行"
+        },
+        {
+          "re": "dailyLimit|每日上限|dayLimit",
+          "w": 2,
+          "why": "日上限"
+        },
+        {
+          "re": "minInterval|最小间隔|最小时间间隔",
+          "w": 2,
+          "why": "最小间隔"
+        }
+      ],
+      "vendor": []
+    }
+  ]
+}

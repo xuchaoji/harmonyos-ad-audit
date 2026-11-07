@@ -1,0 +1,109 @@
+{
+  "_comment": "厂商指纹包。新增 SDK = 加一条，不改代码。libs 为强指纹；strings 为弱指纹（可能是适配器/残留）。",
+  "vendors": [
+    {
+      "name": "穿山甲 Pangle / CSJ",
+      "role": "直连 SDK / GroMore 聚合",
+      "libs": ["libpanglearmor.so"],
+      "strings": ["@csj/openadsdk", "CSJSplashAd", "TTAdSdk", "pangle"],
+      "version": ["@csj/openadsdk\\|(\\d+\\.\\d+\\.\\d+)"],
+      "domains": ["pangolin-sdk-toutiao.com", "pangle.io"]
+    },
+    {
+      "name": "优量汇 GDT",
+      "role": "直连 SDK",
+      "libs": ["libgdtunionsdk.so", "libgdtjsvm.so"],
+      "strings": ["@gdt/gdt-union-sdk", "GDTAdSDK", "ATGDT", "GDTAdLandingPage"],
+      "version": ["@gdt/gdt-union-sdk\\|(\\d+\\.\\d+\\.\\d+)"],
+      "domains": ["gdt.qq.com", "e.qq.com"]
+    },
+    {
+      "name": "快手联盟 KSAd",
+      "role": "直连 SDK",
+      "libs": ["libksadsdk.so", "libkwai-v8-lite.so"],
+      "strings": ["ksadsdk", "KSAdSplashLoader", "KSAdClickHelper", "reportAdClick"],
+      "version": ["ksadsdk\\|(\\d+\\.\\d+\\.\\d+)"],
+      "domains": ["kuaishou.com", "gifshow.com"]
+    },
+    {
+      "name": "华为 AdsKit（鲸鸿动能）",
+      "role": "系统广告能力",
+      "libs": [],
+      "strings": ["SystemCapability.Advertising.Ads", "advertising.AutoAdComponent", "JingHong", "HMSplashAdPage"],
+      "version": [],
+      "domains": ["hwad-ads.hicloud.com"]
+    },
+    {
+      "name": "TopOn / Taku",
+      "role": "聚合",
+      "libs": [],
+      "strings": ["anythink_sdk", "ATSDK.init", "ATAdConst"],
+      "version": ["anythink_sdk\\|(\\d+\\.\\d+\\.\\d+)"],
+      "domains": ["anythinktech.com"]
+    },
+    {
+      "name": "Onemore",
+      "role": "聚合",
+      "libs": [],
+      "strings": ["@onemore/sdk", "OnemoreSplashView", "OnemoreInterstitialView"],
+      "version": ["@onemore/sdk\\|(\\d+\\.\\d+\\.\\d+)"],
+      "domains": []
+    },
+    {
+      "name": "GroMore",
+      "role": "穿山甲聚合层（appId）",
+      "libs": [],
+      "strings": ["GromoreManager", "GroMore", "site_config_"],
+      "version": ["site_config_(\\d+)"],
+      "domains": []
+    },
+    {
+      "name": "OSET（shenshi）",
+      "role": "本地竞价 ADX",
+      "libs": [],
+      "strings": ["@shenshi/opensetsdk-core", "OSETSplashView", "OSETPassEffect"],
+      "version": ["@shenshi/opensetsdk-core\\|(\\d+\\.\\d+\\.\\d+)", "@shenshi/harmony-adapter-pro\\|(\\d+\\.\\d+\\.\\d+)"],
+      "domains": ["shenshiads.com"]
+    },
+    {
+      "name": "Mintegral",
+      "role": "海外聚合",
+      "libs": ["libmtgsdk.so"],
+      "strings": ["mintegral", "MTGAd", "MIntegral"],
+      "version": [],
+      "domains": ["mintegral.com"]
+    },
+    {
+      "name": "Sigmob",
+      "role": "聚合",
+      "libs": ["libsigmob.so"],
+      "strings": ["sigmob", "SigmobAd"],
+      "version": [],
+      "domains": ["sigmob.com"]
+    },
+    {
+      "name": "倍孜 Beizi",
+      "role": "聚合",
+      "libs": ["libbeizi.so"],
+      "strings": ["beizi", "BeiziAd"],
+      "version": [],
+      "domains": ["beizi.com"]
+    },
+    {
+      "name": "Unity Ads",
+      "role": "海外",
+      "libs": ["libunityads.so"],
+      "strings": ["UnityAds", "unityads"],
+      "version": [],
+      "domains": ["unityads.unity3d.com"]
+    },
+    {
+      "name": "AppLovin",
+      "role": "海外",
+      "libs": ["libapplovin.so"],
+      "strings": ["AppLovin", "MAXAd"],
+      "version": [],
+      "domains": ["applovin.com"]
+    }
+  ]
+}
